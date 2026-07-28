@@ -1,0 +1,11 @@
+{
+  "states": {
+    "running":   { "icon": "⚡", "color": "E3B341" },
+    "idle":      { "icon": "💤", "color": "6E7681" },
+    "attention": { "icon": "🔴", "color": "F85149" }
+  },
+  "flash": {
+    "interval_ms": 600,
+    "dim_color": "3A0E0C"
+  }
+}

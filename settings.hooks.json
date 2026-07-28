@@ -1,0 +1,12 @@
+{
+  "_comment": "Merge this 'hooks' block into ~/.claude/settings.json. Replace the path with the absolute path to cc-status.sh on your machine. install.sh does this for you.",
+  "hooks": {
+    "SessionStart":     [{ "hooks": [{ "type": "command", "command": "/ABSOLUTE/PATH/TO/cc-status.sh idle" }] }],
+    "UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "/ABSOLUTE/PATH/TO/cc-status.sh running" }] }],
+    "PreToolUse":       [{ "matcher": "*", "hooks": [{ "type": "command", "command": "/ABSOLUTE/PATH/TO/cc-status.sh running" }] }],
+    "PostToolUse":      [{ "matcher": "*", "hooks": [{ "type": "command", "command": "/ABSOLUTE/PATH/TO/cc-status.sh running" }] }],
+    "Notification":     [{ "hooks": [{ "type": "command", "command": "/ABSOLUTE/PATH/TO/cc-status.sh attention" }] }],
+    "Stop":             [{ "hooks": [{ "type": "command", "command": "/ABSOLUTE/PATH/TO/cc-status.sh idle" }] }],
+    "SessionEnd":       [{ "hooks": [{ "type": "command", "command": "/ABSOLUTE/PATH/TO/cc-status.sh reset" }] }]
+  }
+}
