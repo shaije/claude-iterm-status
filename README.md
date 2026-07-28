@@ -14,6 +14,16 @@ everything.
 **Design principle: only "needs attention" flashes.** Idle is the quietest state on
 purpose, so a wall of finished tabs recedes and the genuinely-blocked one is unmissable.
 
+## Mac Menu Bar
+
+A persistent menu-bar icon in the top-right corner of your screen shows the aggregate
+status across **all** Claude Code sessions — even when iTerm2 is in the background or
+hidden. The icon reflects the worst active state with counts (e.g. `🔴1 ⚡2`), so you
+always know if any session needs your attention without switching windows.
+
+Clicking the menu-bar icon opens a dropdown listing every active session. Click any
+session to jump directly to its iTerm2 tab.
+
 ## How it works
 
 ```
