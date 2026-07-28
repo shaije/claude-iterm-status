@@ -63,13 +63,26 @@ Claude Code hooks ──► cc-status.sh <state> ──(escape codes → termina
   clash) and shows the worst current state with counts, e.g. `🔴1 ⚡2`. Clicking a session
   in its dropdown writes a focus request the daemon acts on, jumping you to that tab.
 
+## Prerequisites
+
+| Requirement | Why | Install |
+|-------------|-----|---------|
+| **macOS** | launchd agents + menu-bar app are Mac-only | — |
+| **iTerm2** | tab colors, glyphs, and the Python API | [iterm2.com](https://iterm2.com) or `brew install --cask iterm2` |
+| **Python 3** | venv for the daemons | ships with macOS; or `brew install python` |
+| **jq** | merges hooks into `~/.claude/settings.json` | `brew install jq` |
+| **Claude Code** | the hooks fire from Claude Code sessions | [claude.ai/download](https://claude.ai/download) |
+| **git** | clone this repo | ships with Xcode CLT; or `brew install git` |
+
 ## Install
 
 ```sh
+git clone https://github.com/shaije/claude-iterm-status.git ~/claude-iterm-status
+cd ~/claude-iterm-status
 ./install.sh
 ```
 
-The installer (needs `jq` — `brew install jq`):
+The installer:
 1. creates a `.venv` and installs the `iterm2` + `rumps` libraries,
 2. installs + loads two **launchd agents** (`RunAtLoad` + `KeepAlive`, so they start at
    login and self-restart): `com.<username>.claude-iterm-status` (tab daemon) and
