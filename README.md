@@ -62,8 +62,8 @@ Claude Code hooks ──► cc-status.sh <state> ──(escape codes → termina
 The installer (needs `jq` — `brew install jq`):
 1. creates a `.venv` and installs the `iterm2` + `rumps` libraries,
 2. installs + loads two **launchd agents** (`RunAtLoad` + `KeepAlive`, so they start at
-   login and self-restart): `com.shayg.claude-iterm-status` (tab daemon) and
-   `com.shayg.claude-iterm-menubar` (menu-bar indicator),
+   login and self-restart): `com.<username>.claude-iterm-status` (tab daemon) and
+   `com.<username>.claude-iterm-menubar` (menu-bar indicator),
 3. merges the hooks into `~/.claude/settings.json` (backing it up first).
 
 > **Why launchd instead of iTerm2's AutoLaunch?** AutoLaunch needs iTerm2's bundled Python
@@ -86,8 +86,8 @@ Claude Code session and watch the tab.
 1. `jq . ~/.claude/settings.json` parses and shows a `hooks` block.
 2. Both agents are up:
    ```sh
-   launchctl print "gui/$(id -u)/com.shayg.claude-iterm-status"  | grep state
-   launchctl print "gui/$(id -u)/com.shayg.claude-iterm-menubar" | grep state
+   launchctl print "gui/$(id -u)/com.$(whoami).claude-iterm-status"  | grep state
+   launchctl print "gui/$(id -u)/com.$(whoami).claude-iterm-menubar" | grep state
    ```
 3. A glyph appears in the top-right menu bar (`💤` when all idle).
 4. Run `claude`, submit a prompt that runs a tool → tab goes **⚡ amber**; finishes → **💤 dim**.
@@ -105,8 +105,8 @@ Edit **`config.json`** — colors (hex, no `#`), glyphs, flash interval, and the
 used between flashes. The shell writer, the daemon, and the menu-bar app all read it, so one
 edit restyles everything. Reload after editing:
 ```sh
-launchctl kickstart -k "gui/$(id -u)/com.shayg.claude-iterm-status"
-launchctl kickstart -k "gui/$(id -u)/com.shayg.claude-iterm-menubar"
+launchctl kickstart -k "gui/$(id -u)/com.$(whoami).claude-iterm-status"
+launchctl kickstart -k "gui/$(id -u)/com.$(whoami).claude-iterm-menubar"
 ```
 
 ## Caveats
@@ -121,9 +121,9 @@ launchctl kickstart -k "gui/$(id -u)/com.shayg.claude-iterm-menubar"
 ## Uninstall
 
 ```sh
-launchctl bootout "gui/$(id -u)/com.shayg.claude-iterm-status"  2>/dev/null
-launchctl bootout "gui/$(id -u)/com.shayg.claude-iterm-menubar" 2>/dev/null
-rm ~/Library/LaunchAgents/com.shayg.claude-iterm-status.plist
-rm ~/Library/LaunchAgents/com.shayg.claude-iterm-menubar.plist
+launchctl bootout "gui/$(id -u)/com.$(whoami).claude-iterm-status"  2>/dev/null
+launchctl bootout "gui/$(id -u)/com.$(whoami).claude-iterm-menubar" 2>/dev/null
+rm ~/Library/LaunchAgents/com.$(whoami).claude-iterm-status.plist
+rm ~/Library/LaunchAgents/com.$(whoami).claude-iterm-menubar.plist
 ```
 Then restore the most recent `~/.claude/settings.json.bak.*` (or delete the `hooks` block).
